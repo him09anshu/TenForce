@@ -1,13 +1,11 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import utils.WaitUtil;
+import org.openqa.selenium.WebElement;
+import utils.CommonUtils;
 
-import java.time.Duration;
-
-public class HomePage extends WaitUtil {
+public class HomePage extends CommonUtils {
 
     WebDriver driver;
 
@@ -19,19 +17,20 @@ public class HomePage extends WaitUtil {
     By cookieAgreeButton = By.xpath("//*[contains(@class,'gdpr-agreement')]");
 
     public void clickOnCareers(){
-        waitForElement(driver,careersLink);
-        scrollTo(driver.findElement(careersLink));
-        driver.findElement(careersLink).click();
+        WebElement careers = waitForElement(driver,careersLink);
+        scrollToEnd();
+        clickWithJS(driver,careers);
     }
 
-    public boolean validatecareersLink(){
+    public boolean validateCareersLink(){
         waitForElement(driver,careersLink);
         return driver.findElement(careersLink).isDisplayed();
     }
 
     public void clickOnCookieAgreeButton() {
-        waitForElement(driver,cookieAgreeButton);
-        driver.findElement(cookieAgreeButton).click();
+        WebElement agreeButton = waitForElement(driver,cookieAgreeButton);
+        clickWithJS(driver,agreeButton);
+        waitForInvisibility(driver,cookieAgreeButton);
     }
 
 }

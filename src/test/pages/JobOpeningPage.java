@@ -3,11 +3,9 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import utils.WaitUtil;
+import utils.CommonUtils;
 
-import java.time.Duration;
-
-public class JobOpeningPage extends WaitUtil {
+public class JobOpeningPage extends CommonUtils {
 
     WebDriver driver;
 

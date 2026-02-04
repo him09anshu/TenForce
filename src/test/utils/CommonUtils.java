@@ -1,20 +1,14 @@
 package utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+import base.BaseTest;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
-import static utils.DriverFactory.driver;
+public class CommonUtils extends BaseTest {
 
-public class WaitUtil {
-
-    public WaitUtil(){
+    public CommonUtils(){
     }
 
     public static WebElement waitForElement(WebDriver driver, By locator){
@@ -22,14 +16,20 @@ public class WaitUtil {
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
-    public void scrollTo(WebElement element) {
+    public void waitForInvisibility(WebDriver driver, By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+    }
+
+    public static void scrollToEnd() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-        js.executeScript("window.scrollTo(0, 0)");
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
     }
 
     public static void clickWithJS(WebDriver driver, WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", element);
     }
-}
+
+    }
+

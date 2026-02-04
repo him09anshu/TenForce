@@ -4,11 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import utils.WaitUtil;
+import utils.CommonUtils;
 
-import java.time.Duration;
-
-public class CareersPage extends WaitUtil {
+public class CareersPage extends CommonUtils {
 
     WebDriver driver;
 
@@ -25,8 +23,8 @@ public class CareersPage extends WaitUtil {
     By jobOpeningsText = By.xpath("//a[@href='#job']");
 
     public void clickOnLifeAtTenforceText(){
-        waitForElement(driver, lifeAtTenforceText);
-        driver.findElement(lifeAtTenforceText).click();
+        WebElement lifeAtTenforce = waitForElement(driver, lifeAtTenforceText);
+        clickWithJS(driver,lifeAtTenforce);
     }
 
     public WebElement validateLifeAtTenforceText(){
@@ -35,18 +33,13 @@ public class CareersPage extends WaitUtil {
     }
 
     public void clickOnlifeOfTwoInternsText(){
-        waitForElement(driver,lifeOfTwoInternsText);
-        driver.findElement(lifeOfTwoInternsText).click();
+        WebElement lifeOfTwoInterns = waitForElement(driver,lifeOfTwoInternsText);
+        clickWithJS(driver,lifeOfTwoInterns);
     }
 
     public void clickOnjobOpeningsText(){
-        waitForElement(driver,jobOpeningsText);
-        driver.findElement(jobOpeningsText).click();
+        WebElement jobOpening = waitForElement(driver,jobOpeningsText);
+        clickWithJS(driver,jobOpening);
     }
 
-    public void scrollArticle() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-        js.executeScript("window.scrollTo(0, 0)");
-    }
 }

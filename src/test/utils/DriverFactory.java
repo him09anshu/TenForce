@@ -16,10 +16,6 @@ public class DriverFactory {
         return driver;
     }
 
-    public static WebDriver getDriver(){
-        return driver;
-    }
-
     public static void quitDriver(){
         driver.quit();
     }

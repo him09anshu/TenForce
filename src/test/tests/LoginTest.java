@@ -1,21 +1,12 @@
 package tests;
 
 import base.BaseTest;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CareersPage;
 import pages.HomePage;
 import pages.JobOpeningPage;
-import utils.WaitUtil;
-
-import javax.swing.*;
-import java.time.Duration;
+import utils.CommonUtils;
 
 public class LoginTest extends BaseTest {
 
@@ -25,37 +16,38 @@ public class LoginTest extends BaseTest {
         HomePage homePage = new HomePage(driver);
         CareersPage careerPage = new CareersPage(driver);
         JobOpeningPage jobOpeningPage = new JobOpeningPage(driver);
+        CommonUtils commonUtils = new CommonUtils();
 
+        test.info("Launching TenForce website");
         driver.get("https://www.tenforce.com/");
 
+        test.info("Verify page title");
+        String pageTitle = driver.getTitle();
+        Assert.assertEquals(pageTitle.trim(),"TenForce Software: EHSQ. Operational Risk. Data Intelligence");
+
+        test.info("Accepting cookies");
         homePage.clickOnCookieAgreeButton();
 
-        homePage.validatecareersLink();
+        homePage.validateCareersLink();
         homePage.clickOnCareers();
+
+        String careersPageTitle = driver.getTitle();
+        Assert.assertEquals(careersPageTitle,"Сareer | TENFORCE");
 
         String text = careerPage.validateLifeAtTenforceText().getText();
         Assert.assertEquals(text, "LIFE AT TENFORCE");
 
-
         careerPage.clickOnLifeAtTenforceText();
-
-
         careerPage.clickOnlifeOfTwoInternsText();
 
-        Actions actions = new Actions(driver);
-        for(int i=0; i<2; i++) {
-            actions.sendKeys(Keys.PAGE_DOWN).build().perform();
-        }
+        CommonUtils.scrollToEnd();
+        test.info("Scrolling to end of page");
 
         driver.navigate().back();
-
-
         careerPage.clickOnjobOpeningsText();
 
-
+        test.info("Verify job opening page text");
         String actualText = jobOpeningPage.validateFeelFreeText().getText();
         Assert.assertEquals(actualText, "Feel free to send your CV to");
-
-
     }
 }
